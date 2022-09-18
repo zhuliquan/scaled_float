@@ -1,0 +1,5 @@
+# Description
+Scaled float field type in ElasticSearch, a floating point number that is backed by a long, scaled by a fixed double scaling factor.
+
+# Detail
+For floating-point types, it is often more efficient to store floating-point data into an integer using a scaling factor, which is what the scaled_float type does under the hood. For instance, a price field could be stored in a scaled_float with a scaling_factor of 100. All APIs would work as if the field was stored as a double, but under the hood Elasticsearch would be working with the number of cents, price*100, which is an integer. This is mostly helpful to save disk space since integers are way easier to compress than floating points. scaled_float is also fine to use in order to trade accuracy for disk space. For instance imagine that you are tracking cpu utilization as a number between 0 and 1. It usually does not matter much whether cpu utilization is 12.7% or 13%, so you could use a scaled_float with a scaling_factor of 100 in order to round cpu utilization to the closest percent in order to save space.
