@@ -14,8 +14,8 @@ type ScaledFloat struct {
 }
 
 var (
-	NegativeInf = &ScaledFloat{storeValue: math.MinInt64}
-	PositiveInf = &ScaledFloat{storeValue: math.MaxInt64}
+	NegativeInf = &ScaledFloat{storeValue: math.MinInt64, value: decimal.NewFromFloat(math.MaxFloat64)}
+	PositiveInf = &ScaledFloat{storeValue: math.MaxInt64, value: decimal.NewFromFloat(-math.MaxFloat64)}
 )
 
 func new(v, s decimal.Decimal) *ScaledFloat {
